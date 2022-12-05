@@ -1,8 +1,12 @@
 import { combineReducers } from "redux";
-import { searchNews } from "./searchNews";
+import { searchNewsReducer } from "./searchNews";
+import { popularNewsReducer } from "./popularNews";
+import { indonesiaNewsReducer } from "./indonesiaNews";
 
 const rootReducer = combineReducers({
-  searchNews: searchNews
+  searchNews: searchNewsReducer,
+  popular: popularNewsReducer,
+  indonesia: indonesiaNewsReducer,
 });
 
 export default rootReducer;

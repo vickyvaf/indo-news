@@ -15,14 +15,14 @@ const SearchInput = () => {
   const tag = useSelector((state) => state.searchNews.tag);
 
   const search = () => {
-    dispatch({ type: "FETCH" });
+    dispatch({ type: "SEARCH_FETCH" });
     axios(`https://jakpost.vercel.app/api/search/${searchInputValue}`)
       .then((res) => {
-        dispatch({ type: "FETCH_SUCCESS", payload: { datas: res.data.data } });
+        dispatch({ type: "SEARCH_FETCH_SUCCESS", payload: { datas: res.data.data } });
         navigate(`/search/${searchInputValue}`);
       })
       .catch((err) => {
-        dispatch({ type: "FETCH_ERROR", payload: { errorMsg: err.message } });
+        dispatch({ type: "SEARCH_FETCH_ERROR", payload: { errorMsg: err.message } });
         window.location.reload();
       });
   };

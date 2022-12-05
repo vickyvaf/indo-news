@@ -1,4 +1,4 @@
-const initialState = {
+const search = {
   datas: [],
   searchInputValue: "",
   errorMsg: "",
@@ -6,11 +6,11 @@ const initialState = {
   // idle || loading || success || error || empty
 };
 
-export const searchNews = (state = initialState, action) => {
+export const searchNewsReducer = (state = search, action) => {
   switch (state.tag) {
     case "idle": {
       switch (action.type) {
-        case "FETCH": {
+        case "SEARCH_FETCH": {
           return {
             ...state,
             tag: "loading",
@@ -23,6 +23,13 @@ export const searchNews = (state = initialState, action) => {
             searchInputValue: action.payload.searchInputValue,
           };
         }
+        case "SEARCH_SUBMIT": {
+          return {
+            ...state,
+            tag: "loading",
+            searchInputValue: action.payload.searchInputValue,
+          };
+        }
         default: {
           return state;
         }
@@ -30,7 +37,7 @@ export const searchNews = (state = initialState, action) => {
     }
     case "loading": {
       switch (action.type) {
-        case "FETCH_SUCCESS": {
+        case "SEARCH_FETCH_SUCCESS": {
           return {
             ...state,
             tag: "loaded",
@@ -39,7 +46,7 @@ export const searchNews = (state = initialState, action) => {
             searchInputValue: "",
           };
         }
-        case "FETCH_EMPTY": {
+        case "SEARCH_FETCH_EMPTY": {
           return {
             ...state,
             tag: "empty",
@@ -48,13 +55,13 @@ export const searchNews = (state = initialState, action) => {
             searchInputValue: "",
           };
         }
-        case "FETCH_ERROR": {
+        case "SEARCH_FETCH_ERROR": {
           return {
             ...state,
             tag: "error",
             datas: [],
             errorMsg: action.payload.errorMsg,
-            searchInputValue: ""
+            searchInputValue: "",
           };
         }
         default: {
