@@ -7,12 +7,14 @@ const NavLink = () => {
   const tagPopular = useSelector((state) => state.popular.tag);
   const tagIndonesia = useSelector((state) => state.indonesia.tag);
   const tagWorld = useSelector((state) => state.world.tag);
+  const tagSearchNews = useSelector((state) => state.searchNews.tag);
 
   return (
     <>
       {tagPopular === "loading" ||
       tagIndonesia === "loading" ||
-      tagWorld === "loading" ? (
+      tagWorld === "loading" ||
+      tagSearchNews === "loading" ? (
         <NavbarSkeletonLoader />
       ) : (
         <div className="flex max-w-[950px] h-12 justify-between mx-auto">
