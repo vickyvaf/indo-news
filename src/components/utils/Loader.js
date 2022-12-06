@@ -20,7 +20,7 @@ export const NavbarSkeletonLoader = () => {
 
 export const HomepageSkeleton = () => {
   return (
-    <div className="bg-white rounded-md px-5 py-6 w-8/12">
+    <div className="bg-white rounded-md px-5 py-6 w-full">
       <div className="w-2/12 h-2 bg-slate-200 rounded-full mb-5" />
       <div className="animate-pulse flex space-x-4">
         <div className="flex flex-col w-5/12 ">
@@ -48,6 +48,34 @@ export const HomepageSkeleton = () => {
             <div className="w-9/12 h-2 bg-slate-200 rounded" />
             <div className="w-4/12 h-2 bg-slate-200 rounded" />
           </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const SideHomepageSkeleton = () => {
+  return (
+    <div className="bg-white rounded-md px-5 py-6 w-full">
+      <div className="w-4/12 h-2 bg-slate-200 rounded-full mb-5" />
+      <div className="space-y-6">
+        <div className="flex justify-between">
+          <div className="w-8/12">
+            <div className="w-full h-2 bg-slate-200 rounded-full mb-3" />
+            <div className="w-full h-2 bg-slate-200 rounded-full mb-3" />
+            <div className="w-6/12 h-2 bg-slate-200 rounded-full mb-3" />
+            <div className="w-4/12 h-2 bg-slate-200 rounded-full mt-2" />
+          </div>
+          <div className="bg-slate-200 h-16 w-3/12 rounded-xl" />
+        </div>
+        <div className="flex justify-between">
+          <div className="w-8/12">
+            <div className="w-full h-2 bg-slate-200 rounded-full mb-3" />
+            <div className="w-full h-2 bg-slate-200 rounded-full mb-3" />
+            <div className="w-6/12 h-2 bg-slate-200 rounded-full mb-3" />
+            <div className="w-4/12 h-2 bg-slate-200 rounded-full mt-2" />
+          </div>
+          <div className="bg-slate-200 h-16 w-3/12 rounded-xl" />
         </div>
       </div>
     </div>

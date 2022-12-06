@@ -1,11 +1,10 @@
-import { Link, useParams } from "react-router-dom";
-import { NavbarSkeletonLoader } from "../utils/Loader";
+import { Link } from "react-router-dom";
 import SearchInput from "./SearchInput";
 import NavLink from "./NavLink";
 
 const Navbar = () => {
   return (
-    <div className="w-full px-5 bg-white border-[1px] fixed font-poppins">
+    <div className="w-full px-5 bg-white border-[1px] fixed font-poppins z-10">
       <div className="h-16 p-2 flex items-center">
         <Link to={"/"} className="font-medium text-lg text-[#5f6368]">
           <span className="text-black">Jakarta</span> Post

@@ -71,7 +71,7 @@ export const searchNewsReducer = (state = search, action) => {
     }
     case "loaded": {
       switch (action.type) {
-        case "FETCH": {
+        case "SEARCH_FETCH": {
           return {
             ...state,
             tag: "loading",
@@ -95,7 +95,7 @@ export const searchNewsReducer = (state = search, action) => {
     }
     case "error": {
       switch (action.type) {
-        case "FETCH": {
+        case "SEARCH_FETCH": {
           return {
             ...state,
             tag: "loading",
@@ -104,15 +104,15 @@ export const searchNewsReducer = (state = search, action) => {
         case "SEARCH_INPUT": {
           return {
             ...state,
-            tag: "loading",
-            searchInputValue: action.payload,
+            // tag: "loading",
+            searchInputValue: action.payload.searchInputValue,
           };
         }
         case "SEARCH_SUBMIT": {
           return {
             ...state,
             tag: "loading",
-            searchInputValue: action.payload,
+            searchInputValue: action.payload.searchInputValue,
             datas: action.payload.datas,
           };
         }
@@ -123,7 +123,7 @@ export const searchNewsReducer = (state = search, action) => {
     }
     case "empty": {
       switch (action.type) {
-        case "FETCH": {
+        case "SEARCH_FETCH": {
           return {
             ...state,
             tag: "loading",
@@ -132,7 +132,7 @@ export const searchNewsReducer = (state = search, action) => {
         case "SEARCH_INPUT": {
           return {
             ...state,
-            tag: "loading",
+            // tag: "loading",
             searchInputValue: action.payload.searchInputValue,
           };
         }

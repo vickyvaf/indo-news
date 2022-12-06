@@ -6,6 +6,9 @@
 
 @layer components {
   .nav-links {
-    @apply mt-6 text-sm text-[#5f6368] font-medium;
+    @apply mt-5 text-sm text-[#5f6368] font-medium;
+  }
+  .nav-links-active {
+    @apply mt-5 text-sm text-[#1A73E8] font-medium border-b-[3px] rounded-br-sm rounded-bl-sm border-[#1A73E8]
   }
 }

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { HomepageSkeleton } from "../utils/Loader";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 const PopularCard = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const PopularCard = () => {
   };
 
   const detailPost = (text) => {
-    return text.slice(30);
+    return "/detailpost/" +  text.slice(42);
   };
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const PopularCard = () => {
   return (
     <>
       {popular.length !== 0 ? (
-        <div className="w-8/12 bg-white rounded-xl overflow-hidden px-5 py-3 mb-3">
+        <div className="w-full bg-white rounded-xl overflow-hidden px-5 py-3 mb-3">
           <Link
             to={"/category/most-viewed"}
             className="text-[#1A73E8] w-fit flex items-center gap-x-2 text-xl"
