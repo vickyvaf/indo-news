@@ -6,8 +6,8 @@ import Homepage from "./pages/homepage/Homepage";
 import SearchPage from "./pages/search/SearchPage";
 import MostViewed from "./pages/mostviewed/MostViewed";
 import NotFoundPage from "./pages/notfound";
-import ErrorSearch from "./pages/error-search";
-import DetailPost from "./pages/detail-post";
+import ErrorSearch from "./pages/errorsearch";
+import DetailPost from "./pages/detailpost";
 
 const App = () => {
   return (

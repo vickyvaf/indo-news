@@ -4,9 +4,9 @@ import {
   HomepageSkeleton,
   SideHomepageSkeleton,
 } from "../../components/utils/Loader";
-import PopularCard from "../../components/homepage-cards/PopularCard";
-import IndonesiaCard from "../../components/homepage-cards/IndonesiaCard";
-import WorldCard from "../../components/homepage-cards/WorldCard";
+import PopularCard from "../../components/homepagecards/PopularCard";
+import IndonesiaCard from "../../components/homepagecards/IndonesiaCard";
+import WorldCard from "../../components/homepagecards/WorldCard";
 import Helmet from "react-helmet";
 
 const Homepage = () => {
@@ -15,7 +15,7 @@ const Homepage = () => {
   const tagIndonesia = useSelector((state) => state.indonesia.tag);
 
   useEffect(() => {
-    dispatch({ type: "FETCH" });
+    // dispatch({ type: "FETCH" });
   }, []);
 
   return (

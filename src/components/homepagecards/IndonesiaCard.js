@@ -2,20 +2,19 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { HomepageSkeleton, SideHomepageSkeleton } from "../utils/Loader";
+import { HomepageSkeleton } from "../utils/Loader";
 
-const WorldCard = () => {
+const IndonesiaCard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const world = useSelector((state) => state.world.world);
-  const tag = useSelector((state) => state.world.tag);
+  const indonesia = useSelector((state) => state.indonesia.indonesia);
 
-  const getWorldNews = () => {
-    axios("https://jakpost.vercel.app/api/category/world")
+  const getIndonesiaNews = () => {
+    axios("https://jakpost.vercel.app/api/category/indonesia")
       .then((res) => {
         dispatch({
-          type: "FETCH_SUCCESS_WORLD",
-          payload: { world: res.data.posts },
+          type: "FETCH_SUCCESS_INDONESIA",
+          payload: { indonesia: res.data.posts },
         });
       })
       .catch(() => alert("gak tau pokok error"));
@@ -32,18 +31,18 @@ const WorldCard = () => {
   };
 
   useEffect(() => {
-    getWorldNews();
+    // getIndonesiaNews();
   }, []);
 
   return (
     <>
-      {world.length !== 0 ? (
+      {indonesia.length !== 0 ? (
         <div className="w-full bg-white rounded-xl overflow-hidden px-5 py-3 mb-3">
           <Link
-            to={"/category/world"}
+            to={"/category/most-viewed"}
             className="text-[#1A73E8] w-fit flex items-center gap-x-2 text-xl"
           >
-            World
+            Indonesia
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -60,33 +59,52 @@ const WorldCard = () => {
             </svg>
           </Link>
           <hr className="my-3" />
-          {world.slice(3, world.length).map((data, i) => {
+          {indonesia.slice(0, 1).map((data, i) => {
             return (
               <>
-                <div key={i} className="w-full bg-white flex py-3">
-                  <div className="w-full">
+                <div key={i} className="w-full bg-white flex">
+                  <div className="w-5/12 py-3">
+                    <img
+                      src={data.image}
+                      className="w-full h-auto rounded-xl mb-2"
+                    />
                     <Link
                       to={detailPost(data.link)}
-                      className="text-sm hover:underline"
+                      className="text-base hover:underline"
                     >
-                      {truncate(data.title, 40) + "..."}
+                      {data.title}
                     </Link>
                     <p className="text-xs text-[#5f6368] my-2">
                       {data.pusblised_at}
                     </p>
                   </div>
-                  <img src={data.image} className="w-16 h-16 rounded-xl ml-3" />
+                  <div className="w-7/12">
+                    {indonesia.slice(0, 3).map((data) => {
+                      return (
+                        <div className="ml-5 mt-2">
+                          <Link
+                            to={detailPost(data.link)}
+                            className="text-sm leading-3 hover:underline"
+                          >
+                            {truncate(data.title, 35) + "..."}
+                          </Link>
+                          <p className="text-xs text-[#5f6368]">
+                            {data.pusblised_at}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-                <hr className="mb-2"/>
               </>
             );
           })}
         </div>
       ) : (
-        <SideHomepageSkeleton />
+        <HomepageSkeleton />
       )}
     </>
   );
 };
 
-export default WorldCard;
+export default IndonesiaCard;
