@@ -1,24 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { HomepageSkeleton, SideHomepageSkeleton } from "../utils/Loader";
 
 const WorldCard = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const world = useSelector((state) => state.world.world);
-  const tag = useSelector((state) => state.world.tag);
+  const [data, setData] = useState([]);
 
-  const getWorldNews = () => {
-    axios("https://jakpost.vercel.app/api/category/world")
+  // const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const indonesia = useSelector((state) => state.indonesia.indonesia);
+
+  const getIndonesiaNews = () => {
+    axios("https://jakpost.vercel.app/api/category/indonesia")
       .then((res) => {
         dispatch({
-          type: "FETCH_SUCCESS_WORLD",
-          payload: { world: res.data.posts },
+          type: "FETCH_SUCCESS_INDONESIA",
+          payload: { indonesia: res.data.posts },
         });
       })
       .catch(() => alert("gak tau pokok error"));
+  };
+
+  const getDatas = () => {
+    axios(
+      "https://berita-indo-api.vercel.app/v1/cnn-news/nasional?title=indonesia"
+    ).then((res) => setData(res.data.data));
   };
 
   const truncate = (text, value) => {
@@ -28,22 +35,23 @@ const WorldCard = () => {
   };
 
   const detailPost = (text) => {
-    return "/detailpost/" +  text.slice(42);
+    return "/detailpost/" + text.slice(42);
   };
 
   useEffect(() => {
-    // getWorldNews();
+    getDatas();
+    console.log(data);
   }, []);
 
   return (
     <>
-      {world.length !== 0 ? (
+      {data.length !== 0 ? (
         <div className="w-full bg-white rounded-xl overflow-hidden px-5 py-3 mb-3">
           <Link
-            to={"/category/world"}
+            to={"/category/most-viewed"}
             className="text-[#1A73E8] w-fit flex items-center gap-x-2 text-xl"
           >
-            World
+            Indonesia
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -60,30 +68,49 @@ const WorldCard = () => {
             </svg>
           </Link>
           <hr className="my-3" />
-          {world.slice(3, world.length).map((data, i) => {
+          {data.slice(0, 1).map((item, i) => {
             return (
-              <>
-                <div key={i} className="w-full bg-white flex py-3">
-                  <div className="w-full">
-                    <Link
-                      to={detailPost(data.link)}
-                      className="text-sm hover:underline"
-                    >
-                      {truncate(data.title, 40) + "..."}
-                    </Link>
-                    <p className="text-xs text-[#5f6368] my-2">
-                      {data.pusblised_at}
-                    </p>
-                  </div>
-                  <img src={data.image} className="w-16 h-16 rounded-xl ml-3" />
+              <div key={i} className="w-full bg-white flex">
+                <div className="w-5/12 py-3">
+                  <img
+                    src={item.image.small}
+                    className="w-full h-auto rounded-xl mb-2"
+                  />
+                  <Link
+                    to={detailPost(item.link)}
+                    className="text-base hover:underline"
+                  >
+                    {item.title}
+                  </Link>
+                  <p className="text-xs text-[#5f6368] my-2">{item.isoDate}</p>
                 </div>
-                <hr className="mb-2"/>
-              </>
+                {data.slice(3, 3).map((item, i) => {
+                  return (
+                    <div key={i} className="w-full bg-white flex py-3">
+                      <div className="w-full">
+                        <Link
+                          to={detailPost(item.link)}
+                          className="text-sm hover:underline"
+                        >
+                          {truncate(item.title, 40) + "..."}
+                        </Link>
+                        <p className="text-xs text-[#5f6368] my-2">
+                          {item.isoDate}
+                        </p>
+                      </div>
+                      <img
+                        src={item.image.small}
+                        className="w-16 h-16 rounded-xl ml-3"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             );
           })}
         </div>
       ) : (
-        <SideHomepageSkeleton />
+        <HomepageSkeleton />
       )}
     </>
   );

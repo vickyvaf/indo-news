@@ -1,10 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { request } from "../../request";
 import { HomepageSkeleton } from "../utils/Loader";
 
 const IndonesiaCard = () => {
+  const [data, setData] = useState([]);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const indonesia = useSelector((state) => state.indonesia.indonesia);
@@ -20,6 +23,12 @@ const IndonesiaCard = () => {
       .catch(() => alert("gak tau pokok error"));
   };
 
+  const getDatas = () => {
+    axios("https://berita-indo-api.vercel.app/v1/cnn-news/nasional?title=indonesia").then((res) =>
+      setData(res.data.data)
+    );
+  };
+
   const truncate = (text, value) => {
     if (text.length >= value) {
       return text.slice(0, value);
@@ -27,16 +36,17 @@ const IndonesiaCard = () => {
   };
 
   const detailPost = (text) => {
-    return "/detailpost/" +  text.slice(42);
+    return "/detailpost/" + text.slice(42);
   };
 
   useEffect(() => {
-    // getIndonesiaNews();
+    getDatas();
+    console.log(data);
   }, []);
 
   return (
     <>
-      {indonesia.length !== 0 ? (
+      {data.length !== 0 ? (
         <div className="w-full bg-white rounded-xl overflow-hidden px-5 py-3 mb-3">
           <Link
             to={"/category/most-viewed"}
@@ -59,44 +69,40 @@ const IndonesiaCard = () => {
             </svg>
           </Link>
           <hr className="my-3" />
-          {indonesia.slice(0, 1).map((data, i) => {
+          {data.slice(0, 1).map((item, i) => {
             return (
-              <>
-                <div key={i} className="w-full bg-white flex">
-                  <div className="w-5/12 py-3">
-                    <img
-                      src={data.image}
-                      className="w-full h-auto rounded-xl mb-2"
-                    />
-                    <Link
-                      to={detailPost(data.link)}
-                      className="text-base hover:underline"
-                    >
-                      {data.title}
-                    </Link>
-                    <p className="text-xs text-[#5f6368] my-2">
-                      {data.pusblised_at}
-                    </p>
-                  </div>
-                  <div className="w-7/12">
-                    {indonesia.slice(0, 3).map((data) => {
+              <div key={i} className="w-full bg-white flex">
+                <div className="w-5/12 py-3">
+                  <img
+                    src={item.image.small}
+                    className="w-full h-auto rounded-xl mb-2"
+                  />
+                  <Link
+                    to={detailPost(item.link)}
+                    className="text-base hover:underline"
+                  >
+                    {item.title}
+                  </Link>
+                  <p className="text-xs text-[#5f6368] my-2">{item.isoDate}</p>
+                </div>
+                <div className="w-7/12">
+                    {data.slice(2, 6).map((item) => {
                       return (
                         <div className="ml-5 mt-2">
                           <Link
-                            to={detailPost(data.link)}
+                            to={detailPost(item.link)}
                             className="text-sm leading-3 hover:underline"
                           >
-                            {truncate(data.title, 35) + "..."}
+                            {truncate(item.title, 35) + "..."}
                           </Link>
                           <p className="text-xs text-[#5f6368]">
-                            {data.pusblised_at}
+                            {item.isoDate}
                           </p>
                         </div>
                       );
                     })}
                   </div>
-                </div>
-              </>
+              </div>
             );
           })}
         </div>
