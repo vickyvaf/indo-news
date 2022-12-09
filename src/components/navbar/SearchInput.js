@@ -15,7 +15,7 @@ const SearchInput = () => {
   const search = () => {
     navigate(`/search/${searchInputValue}`);
     dispatch({ type: "SEARCH_FETCH" });
-    axios(`https://jakpost.vercel.app/api/search/${searchInputValue}`)
+    axios(``)
       .then((res) => {
         dispatch({
           type: "SEARCH_FETCH_SUCCESS",

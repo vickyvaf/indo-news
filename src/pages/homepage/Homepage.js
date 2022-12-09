@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   HomepageSkeleton,
@@ -8,13 +8,26 @@ import PopularCard from "../../components/homepagecards/PopularCard";
 import IndonesiaCard from "../../components/homepagecards/IndonesiaCard";
 import WorldCard from "../../components/homepagecards/WorldCard";
 import Helmet from "react-helmet";
+import axios from "axios";
+import { request } from "../../request";
 
 const Homepage = () => {
   const dispatch = useDispatch();
+
+  
   const tagPopular = useSelector((state) => state.popular.tag);
   const tagIndonesia = useSelector((state) => state.indonesia.tag);
+  
+  const [data, setData] = useState([])
+  const getDatas = () => {
+    axios(request.baseUrl).then((res) =>
+      setData(res.data.listApi)
+    );
+  };
 
   useEffect(() => {
+    // getDatas();
+    // console.log(data);
     // dispatch({ type: "FETCH" });
   }, []);
 
