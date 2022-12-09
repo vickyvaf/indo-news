@@ -30,7 +30,7 @@ const PopularCard = () => {
   };
 
   useEffect(() => {
-    getPopularNews();
+    // getPopularNews();
   }, []);
 
   return (
